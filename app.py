@@ -38,7 +38,7 @@ import os
 
 client = OpenAI(
     api_key=os.getenv("API_KEY"),
-    base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+    base_url="https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion",
 )
 
 completion = client.chat.completions.create(
