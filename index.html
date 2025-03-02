@@ -1,3 +1,5 @@
+
+  <!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,23 +13,23 @@
         <h1>Upload Gambar Sampah untuk Kategorikan</h1>
         
         <!-- Form untuk upload gambar -->
-        <form id="upload-form" enctype="multipart/form-data">
+<!--         <form id="upload-form" enctype="multipart/form-data">
             <label for="image-upload">Pilih gambar sampah:</label>
             <input type="file" id="image-upload" name="image-upload" accept="image/*" required>
             <button type="submit">Kirim</button>
-        </form>
+        </form> -->
         
         <!-- Div untuk menampilkan respons dari AI -->
-        <div id="response-container">
+<!--         <div id="response-container">
             <h2>Hasil Kategorisasi Sampah</h2>
-            <div id="response-text">
+            <div id="response-text"> -->
                 <!-- Respons dari chatbot akan ditampilkan di sini -->
-            </div>
+<!--             </div>
         </div>
     </div>
 
-    <script>
-        // Menangani pengiriman form
+    <script> -->
+<!--         // Menangani pengiriman form
         const form = document.getElementById('upload-form');
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -37,30 +39,31 @@
             formData.append('file', fileInput.files[0]);
             
             // Kirim gambar ke backend untuk dianalisis oleh AI
-            try {
-                const response = await fetch('/analyze-image', {
-                    method: 'POST',
-                    body: formData
-                });
-                const result = await response.json();
+//             try {
+//                 const response = await fetch('/analyze-image', {
+//                     method: 'POST',
+//                     body: formData
+//                 });
+//                 const result = await response.json();
 
-                if (response.ok) {
-                    document.getElementById('response-text').innerHTML = `
-                        <p><strong>Kategori:</strong> ${result.category}</p>
-                        <p><strong>Deskripsi:</strong> ${result.description}</p>
-                    `;
-                } else {
-                    document.getElementById('response-text').innerHTML = `
-                        <p>Terjadi kesalahan: ${result.error}</p>
-                    `;
-                }
-            } catch (error) {
-                document.getElementById('response-text').innerHTML = `
-                    <p>Terjadi kesalahan saat menghubungi server: ${error.message}</p>
-                `;
-            }
-        });
-    </script>
-</body>
-</html>
+//                 if (response.ok) { -->
+<!-- //                     document.getElementById('response-text').innerHTML = `
+//                         <p><strong>Kategori:</strong> ${result.category}</p>
+//                         <p><strong>Deskripsi:</strong> ${result.description}</p>
+//                     `;
+//                 } else {
+//                     document.getElementById('response-text').innerHTML = `
+//                         <p>Terjadi kesalahan: ${result.error}</p>
+//                     `;
+//                 }
+//             } catch (error) {
+//                 document.getElementById('response-text').innerHTML = `
+//                     <p>Terjadi kesalahan saat menghubungi server: ${error.message}</p>
+//                 `;
+//             }
+//         });
+//     </script>
+// </body>
+// </html>
 
+ -->
