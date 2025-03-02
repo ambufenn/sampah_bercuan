@@ -110,7 +110,7 @@ data = {
     "messages": [
         {"role": "user", "content": [
             {"type": "text", "text": "What is this"},
-            {"type": "image_url", "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}}
+            {"type": "image_url", "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com"}}
         ]}
     ]
 }
