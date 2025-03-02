@@ -6,36 +6,36 @@ from openai import OpenAI
 import os
 from http.client import HTTPMessage
 
-# Load API key from .env file
-load_dotenv()
-API_KEY = os.getenv('API_KEY')
+# # PERTAMA Load API key from .env file
+# load_dotenv()
+# API_KEY = os.getenv('API_KEY')
 
-# URL endpoint API, dengan Application ID yang sudah diganti
-url = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
+# # URL endpoint API, dengan Application ID yang sudah diganti
+# url = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
 
-# Data yang akan dikirimkan dalam request, sesuaikan dengan input yang dibutuhkan API
-data = {
-    "input_text": "Upload an image here or pass an input",  # Ganti ini sesuai input kamu
-    "model": "qwen-max"
-}
+# # Data yang akan dikirimkan dalam request, sesuaikan dengan input yang dibutuhkan API
+# data = {
+#     "input_text": "Upload an image here or pass an input",  # Ganti ini sesuai input kamu
+#     "model": "qwen-max"
+# }
 
-headers = {
-    "Authorization": f"Bearer {API_KEY}",
-    "Content-Type": "application/json"
-}
+# headers = {
+#     "Authorization": f"Bearer {API_KEY}",
+#     "Content-Type": "application/json"
+# }
 
-# Mengirim POST request
-response = requests.post(url, json=data, headers=headers)
+# # Mengirim POST request
+# response = requests.post(url, json=data, headers=headers)
 
-# Mengecek apakah request berhasil
-if response.status_code == 200:
-    print("Response:", response.json())
-else:
-    print("Failed to get response:", response.status_code, response.text)
-
-
+# # Mengecek apakah request berhasil
+# if response.status_code == 200:
+#     print("Response:", response.json())
+# else:
+#     print("Failed to get response:", response.status_code, response.text)
 
 
+
+##KEDUA
 # client = OpenAI(
 #     api_key=os.getenv("API_KEY"),
 #     base_url="https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion",
@@ -50,6 +50,13 @@ else:
 # )
 
 # print(completion.choices[0].message)
+
+
+
+
+##KETIGA
+
+
 
 # import os
 # from http.client import HTTPMessage
@@ -69,7 +76,7 @@ else:
 # YOUR_API_TOKEN = os.getenv('API_KEY')
 # dashscope.api_key = https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion
 
-# lagi keder
+# #KEMEMPAT lagi keder
 
 # base_url for SDK: https://dashscope-intl.aliyuncs.com/compatible-mode/v1
 
@@ -92,7 +99,7 @@ else:
 #     )
 # print(completion.model_dump_json())
 
-
+## KELIMA
 # import os
 # import requests
 # from dotenv import load_dotenv
@@ -129,4 +136,64 @@ else:
 #     print("Response:", response.json())
 # else:
 #     print("Failed to get response:", response.status_code, response.text)
+
+## KEENAM
+
+import os
+import requests
+import streamlit as st
+from dotenv import load_dotenv
+
+# Load API key dari .env file
+load_dotenv()
+API_KEY = os.getenv("API_KEY")  # Pakai variabel API_KEY sesuai yang kamu simpan
+
+# Pastikan API Key ada
+if not API_KEY:
+    st.error("API Key tidak ditemukan! Pastikan sudah diset di .env dengan nama API_KEY")
+    st.stop()
+
+# URL endpoint API DashScope yang benar
+API_URL = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions"
+
+# Streamlit UI
+st.title("Sampah Bercuan - Deteksi Kategori Sampah")
+st.write("Upload gambar sampah untuk dikategorikan.")
+
+# Upload image
+uploaded_file = st.file_uploader("Pilih gambar...", type=["jpg", "png", "jpeg"])
+
+if uploaded_file is not None:
+    st.image(uploaded_file, caption="Gambar yang diupload", use_column_width=True)
+
+    # Simpan file sementara
+    img_path = f"temp_{uploaded_file.name}"
+    with open(img_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
+    # Kirim ke API DashScope
+    data = {
+        "model": "qwen-vl-plus",
+        "messages": [
+            {"role": "user", "content": [
+                {"type": "text", "text": "Kategori sampah apakah ini?"},
+                {"type": "image_url", "image_url": {"url": img_path}}
+            ]}
+        ]
+    }
+
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    response = requests.post(API_URL, json=data, headers=headers)
+
+    # Tampilkan hasil
+    if response.status_code == 200:
+        result = response.json()
+        st.success("Interpretasi Gambar:")
+        st.write(result)
+    else:
+        st.error(f"Gagal mendapatkan hasil. Status: {response.status_code}, Pesan: {response.text}")
 
