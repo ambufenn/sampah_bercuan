@@ -4,34 +4,34 @@ from dotenv import load_dotenv
 import streamlit as st
 from openai import OpenAI
 import os
+from http.client import HTTPMessage
 
+# Load API key from .env file
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
 
-# # Load API key from .env file
-# load_dotenv()
-# API_KEY = os.getenv('API_KEY')
+# URL endpoint API, dengan Application ID yang sudah diganti
+url = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
 
-# # URL endpoint API, dengan Application ID yang sudah diganti
-# url = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
+# Data yang akan dikirimkan dalam request, sesuaikan dengan input yang dibutuhkan API
+data = {
+    "input_text": "Upload an image here or pass an input",  # Ganti ini sesuai input kamu
+    "model": "qwen-max"
+}
 
-# # Data yang akan dikirimkan dalam request, sesuaikan dengan input yang dibutuhkan API
-# data = {
-#     "input_text": "Upload an image here or pass an input",  # Ganti ini sesuai input kamu
-#     "model": "qwen-max"
-# }
+headers = {
+    "Authorization": f"Bearer {API_KEY}",
+    "Content-Type": "application/json"
+}
 
-# headers = {
-#     "Authorization": f"Bearer {API_KEY}",
-#     "Content-Type": "application/json"
-# }
+# Mengirim POST request
+response = requests.post(url, json=data, headers=headers)
 
-# # Mengirim POST request
-# response = requests.post(url, json=data, headers=headers)
-
-# # Mengecek apakah request berhasil
-# if response.status_code == 200:
-#     print("Response:", response.json())
-# else:
-#     print("Failed to get response:", response.status_code, response.text)
+# Mengecek apakah request berhasil
+if response.status_code == 200:
+    print("Response:", response.json())
+else:
+    print("Failed to get response:", response.status_code, response.text)
 
 
 
@@ -93,40 +93,40 @@ import os
 # print(completion.model_dump_json())
 
 
-import os
-import requests
-from dotenv import load_dotenv
+# import os
+# import requests
+# from dotenv import load_dotenv
 
-# Load API key dari .env file
-load_dotenv()
-API_KEY = os.getenv("API_KEY")
+# # Load API key dari .env file
+# load_dotenv()
+# API_KEY = os.getenv("API_KEY")
 
-# URL endpoint API terbaru dari Alibaba
-url = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
+# # URL endpoint API terbaru dari Alibaba
+# url = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
 
-# Data yang dikirim ke API
-data = {
-    "model": "qwen-max",  # Ganti sesuai model yang diinginkan
-    "messages": [
-        {"role": "user", "content": [
-            {"type": "text", "text": "What is this"},
-            {"type": "image_url", "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com"}}
-        ]}
-    ]
-}
+# # Data yang dikirim ke API
+# data = {
+#     "model": "qwen-max",  # Ganti sesuai model yang diinginkan
+#     "messages": [
+#         {"role": "user", "content": [
+#             {"type": "text", "text": "What is this"},
+#             {"type": "image_url", "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com"}}
+#         ]}
+#     ]
+# }
 
-# Header permintaan
-headers = {
-    "Authorization": f"Bearer {API_KEY}",
-    "Content-Type": "application/json"
-}
+# # Header permintaan
+# headers = {
+#     "Authorization": f"Bearer {API_KEY}",
+#     "Content-Type": "application/json"
+# }
 
-# Mengirim permintaan ke API
-response = requests.post(url, json=data, headers=headers)
+# # Mengirim permintaan ke API
+# response = requests.post(url, json=data, headers=headers)
 
-# Menampilkan hasil response
-if response.status_code == 200:
-    print("Response:", response.json())
-else:
-    print("Failed to get response:", response.status_code, response.text)
+# # Menampilkan hasil response
+# if response.status_code == 200:
+#     print("Response:", response.json())
+# else:
+#     print("Failed to get response:", response.status_code, response.text)
 
