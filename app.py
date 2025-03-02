@@ -177,7 +177,9 @@ if uploaded_file is not None:
         "messages": [
             {"role": "user", "content": [
                 {"type": "text", "text": "Kategori sampah apakah ini?"},
-                {"type": "image_url", "image_url": {"url": img_path}}
+                # {"type": "image_url", "image_url": {"url": img_path}}
+                {"type": "image_url", "image_url": {"url": "https://i.ibb.co/example-image.jpg"}}
+
             ]}
         ]
     }
