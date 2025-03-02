@@ -36,18 +36,37 @@ import os
 
 
 
-client = OpenAI(
-    api_key=os.getenv("API_KEY"),
-    base_url="https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion",
-)
+# client = OpenAI(
+#     api_key=os.getenv("API_KEY"),
+#     base_url="https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion",
+# )
 
-completion = client.chat.completions.create(
-    model="qwen-max-2025-01-25",
-    messages=[
-      {'role': 'system', 'content': 'You are a helpful assistant.'},
-      {'role': 'user', 'content': 'Which number is larger, 9.11 or 9.8?'}
-    ]
-)
+# completion = client.chat.completions.create(
+#     model="qwen-max-2025-01-25",
+#     messages=[
+#       {'role': 'system', 'content': 'You are a helpful assistant.'},
+#       {'role': 'user', 'content': 'Which number is larger, 9.11 or 9.8?'}
+#     ]
+# )
 
-print(completion.choices[0].message)
+# print(completion.choices[0].message)
+
+import os
+from http.client import HTTPMessage
+
+os.system('pip install dashscope')
+
+import gradio as gr
+from http import HTTPStatus
+import dashscope
+from dashscope import Generation
+from dashscope.api_entities.dashscope_response import Role
+from typing import List, Optional, Tuple, Dict
+from urllib.error import HTTPError
+
+default_system = 'You are Qwen, created by Alibaba Cloud. You are a helpful assistant.'
+
+YOUR_API_TOKEN = os.getenv('API_KEY')
+dashscope.api_key = https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion
+
 
