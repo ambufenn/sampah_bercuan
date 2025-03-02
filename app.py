@@ -71,23 +71,62 @@ import os
 
 # lagi keder
 
-base_url for SDK: https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+# base_url for SDK: https://dashscope-intl.aliyuncs.com/compatible-mode/v1
 
-HTTP endpoint: POST https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions
+# HTTP endpoint: POST https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions
+# import os
+# from openai import OpenAI
+
+# client = OpenAI(
+#     # If the environment variable is not configured, replace the following line with: api_key="sk-xxx",
+#     api_key=os.getenv("DASHSCOPE_API_KEY"),
+#     base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+# )
+# completion = client.chat.completions.create(
+#     model="qwen-vl-plus",  # Here qwen-vl-plus is used as an example. You can change the model name as needed. Model list: https://www.alibabacloud.com/help/en/model-studio/getting-started/models
+#     messages=[{"role": "user","content": [
+#             {"type": "text","text": "What is this"},
+#             {"type": "image_url",
+#              "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}}
+#             ]}]
+#     )
+# print(completion.model_dump_json())
+
+
 import os
-from openai import OpenAI
+import requests
+from dotenv import load_dotenv
 
-client = OpenAI(
-    # If the environment variable is not configured, replace the following line with: api_key="sk-xxx",
-    api_key=os.getenv("DASHSCOPE_API_KEY"),
-    base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
-)
-completion = client.chat.completions.create(
-    model="qwen-vl-plus",  # Here qwen-vl-plus is used as an example. You can change the model name as needed. Model list: https://www.alibabacloud.com/help/en/model-studio/getting-started/models
-    messages=[{"role": "user","content": [
-            {"type": "text","text": "What is this"},
-            {"type": "image_url",
-             "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}}
-            ]}]
-    )
-print(completion.model_dump_json())
+# Load API key dari .env file
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
+
+# URL endpoint API terbaru dari Alibaba
+url = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
+
+# Data yang dikirim ke API
+data = {
+    "model": "qwen-max",  # Ganti sesuai model yang diinginkan
+    "messages": [
+        {"role": "user", "content": [
+            {"type": "text", "text": "What is this"},
+            {"type": "image_url", "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}}
+        ]}
+    ]
+}
+
+# Header permintaan
+headers = {
+    "Authorization": f"Bearer {API_KEY}",
+    "Content-Type": "application/json"
+}
+
+# Mengirim permintaan ke API
+response = requests.post(url, json=data, headers=headers)
+
+# Menampilkan hasil response
+if response.status_code == 200:
+    print("Response:", response.json())
+else:
+    print("Failed to get response:", response.status_code, response.text)
+
