@@ -154,7 +154,7 @@ if not API_KEY:
     st.stop()
 
 # URL endpoint API DashScope yang benar
-API_URL = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions"
+API_URL = "https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion"
 
 # Streamlit UI
 st.title("Sampah Bercuan - Deteksi Kategori Sampah")
