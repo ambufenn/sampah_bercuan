@@ -51,22 +51,43 @@ import os
 
 # print(completion.choices[0].message)
 
+# import os
+# from http.client import HTTPMessage
+
+# os.system('pip install dashscope')
+
+# import gradio as gr
+# from http import HTTPStatus
+# import dashscope
+# from dashscope import Generation
+# from dashscope.api_entities.dashscope_response import Role
+# from typing import List, Optional, Tuple, Dict
+# from urllib.error import HTTPError
+
+# default_system = 'You are Qwen, created by Alibaba Cloud. You are a helpful assistant.'
+
+# YOUR_API_TOKEN = os.getenv('API_KEY')
+# dashscope.api_key = https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion
+
+# lagi keder
+
+base_url for SDK: https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+
+HTTP endpoint: POST https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions
 import os
-from http.client import HTTPMessage
+from openai import OpenAI
 
-os.system('pip install dashscope')
-
-import gradio as gr
-from http import HTTPStatus
-import dashscope
-from dashscope import Generation
-from dashscope.api_entities.dashscope_response import Role
-from typing import List, Optional, Tuple, Dict
-from urllib.error import HTTPError
-
-default_system = 'You are Qwen, created by Alibaba Cloud. You are a helpful assistant.'
-
-YOUR_API_TOKEN = os.getenv('API_KEY')
-dashscope.api_key = https://dashscope-intl.aliyuncs.com/api/v1/apps/4f0f74ce308a435c86613251d38fcf21/completion
-
-
+client = OpenAI(
+    # If the environment variable is not configured, replace the following line with: api_key="sk-xxx",
+    api_key=os.getenv("DASHSCOPE_API_KEY"),
+    base_url="https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+)
+completion = client.chat.completions.create(
+    model="qwen-vl-plus",  # Here qwen-vl-plus is used as an example. You can change the model name as needed. Model list: https://www.alibabacloud.com/help/en/model-studio/getting-started/models
+    messages=[{"role": "user","content": [
+            {"type": "text","text": "What is this"},
+            {"type": "image_url",
+             "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}}
+            ]}]
+    )
+print(completion.model_dump_json())
