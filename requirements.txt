@@ -3,6 +3,6 @@ requests
 python-dotenv
 openai
 gradio
-dashscope
+
 alibabacloud-dashscope
 
