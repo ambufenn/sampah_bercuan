@@ -1,8 +1,9 @@
-streamlit
-requests
-python-dotenv
-openai
-gradio
 
+
+streamlit
+python-dotenv
+requests
+openai
 alibabacloud-dashscope
+
 
