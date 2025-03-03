@@ -24,7 +24,7 @@ if uploaded_file is not None:
     img_url = "https://your-public-image-url.com/image.jpg"
 
     # List model yang dipakai
-    models = ["qwen-vl-plus", "qwen max"]
+    models = ["qwen-vl-plus", "qwen-max"]
     results = {}
 
     for model in models:
